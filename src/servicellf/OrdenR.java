@@ -4,6 +4,7 @@
  */
 package servicellf;
 
+import Metodos.ConsumirEventos;
 import Metodos.OT;
 import P.ordent;
 import java.awt.Graphics;
@@ -19,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Ensamble
  */
 public class OrdenR extends javax.swing.JFrame {
+ConsumirEventos consumir = new ConsumirEventos();
 ordent ordent = new ordent();
 OT OT = new OT ();
 DefaultTableModel mdlTable2; 
@@ -30,6 +32,7 @@ FondoPanel fondo = new FondoPanel();
     public OrdenR() {
         this.setContentPane(fondo);
         initComponents();
+        ayudasAlUsuario();
     }
 
     /**
@@ -71,9 +74,44 @@ FondoPanel fondo = new FondoPanel();
 
         jLabel6.setText("Servicio:");
 
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idKeyTyped(evt);
+            }
+        });
+
+        falla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fallaKeyTyped(evt);
+            }
+        });
+
         cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clienteActionPerformed(evt);
+            }
+        });
+        cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                clienteKeyTyped(evt);
+            }
+        });
+
+        tel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telKeyTyped(evt);
+            }
+        });
+
+        entrega.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                entregaKeyTyped(evt);
+            }
+        });
+
+        servicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                servicioKeyTyped(evt);
             }
         });
 
@@ -104,11 +142,8 @@ FondoPanel fondo = new FondoPanel();
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(72, 72, 72))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,31 +204,56 @@ FondoPanel fondo = new FondoPanel();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     mdlTable2 = new DefaultTableModel();
+        mdlTable2 = new DefaultTableModel();
 
-        String ID = id.getText();
-        String Falla = falla.getText();
-        String Cliente = cliente.getText();
-String Telefono = tel.getText();
-String Entrega =entrega.getText();
-String Servicio = servicio.getText();
-        ordent.setID(ID);
-        ordent.setCliente(Cliente);
-        ordent.setEntrega(Entrega);
-        ordent.setFalla(Falla);
-        ordent.setTelefono(Telefono);
-        ordent.setServicio(Servicio);
-        OT.Guardar(ordent);
-        OT.GuardarArchivo(ordent);
-        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-        id.setText("");
-        falla.setText("");
-        cliente.setText("");
-        tel.setText("");
-        entrega.setText("");
-        servicio.setText("");
+        if (id.getText().isEmpty() || falla.getText().isEmpty() || tel.getText().isEmpty() || entrega.getText().isEmpty() || servicio.getText().isEmpty() || cliente.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "NO PUEDES DEJAR CAMPOS VACIOS");
+
+        } else {
+            if (id.getText().length() != 5) {
+                JOptionPane.showMessageDialog(null, "NO PUEDES INGRESAR UN ID DIFERENTE A 5 CARACTERES");
+            } else {
+
+                String ID = id.getText();
+                String Falla = falla.getText();
+                String Cliente = cliente.getText();
+                String Telefono = tel.getText();
+                String Entrega = entrega.getText();
+                String Servicio = servicio.getText();
+                ordent.setID(ID);
+                ordent.setCliente(Cliente);
+                ordent.setEntrega(Entrega);
+                ordent.setFalla(Falla);
+                ordent.setTelefono(Telefono);
+                ordent.setServicio(Servicio);
+                OT.Guardar(ordent);
+                OT.GuardarArchivo(ordent);
+                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                id.setText("");
+                falla.setText("");
+                cliente.setText("");
+                tel.setText("");
+                entrega.setText("");
+                servicio.setText("");
+
+            }
+        }
+
+     
+     
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void ayudasAlUsuario(){
+                 id.setToolTipText("Ingresa tu id");
+                falla.setToolTipText("Ingresa la falla");
+                cliente.setToolTipText("Ingresa el nombre del cliente");
+                 tel.setToolTipText("Ingresa el telefono");
+                entrega.setToolTipText("Ingresa el dia de entrega");
+                servicio.setToolTipText("Ingresa el serivicio");
+    
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Menu pc = new Menu();
         pc.setVisible(true);
@@ -203,6 +263,30 @@ String Servicio = servicio.getText();
     private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_clienteActionPerformed
+
+    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
+        consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_idKeyTyped
+
+    private void fallaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fallaKeyTyped
+       consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_fallaKeyTyped
+
+    private void clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clienteKeyTyped
+       consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_clienteKeyTyped
+
+    private void telKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telKeyTyped
+     consumir.consumirNumeros(evt);
+    }//GEN-LAST:event_telKeyTyped
+
+    private void entregaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entregaKeyTyped
+      consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_entregaKeyTyped
+
+    private void servicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_servicioKeyTyped
+     consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_servicioKeyTyped
 
     /**
      * @param args the command line arguments
