@@ -5,6 +5,7 @@
 package servicellf;
 import P.catalogom;
 import Metodos.CM;
+import Metodos.ConsumirEventos;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Vector;
@@ -22,11 +23,13 @@ catalogom catalogom = new catalogom();
 CM CM = new CM();
 DefaultTableModel mdlTable; 
 Vector vCabeceras = new Vector();
-
+  public static ConsumirEventos consumir = new ConsumirEventos();
 FondoPanel fondo = new FondoPanel();
     public CatalogoM() {
         this.setContentPane(fondo);
         initComponents();
+        ayudarAlUsuario();
+      
  
     }
     /**
@@ -64,6 +67,11 @@ FondoPanel fondo = new FondoPanel();
                 idActionPerformed(evt);
             }
         });
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idKeyTyped(evt);
+            }
+        });
 
         nc.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         nc.addActionListener(new java.awt.event.ActionListener() {
@@ -71,11 +79,21 @@ FondoPanel fondo = new FondoPanel();
                 ncActionPerformed(evt);
             }
         });
+        nc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ncKeyTyped(evt);
+            }
+        });
 
         cedula.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         cedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cedulaActionPerformed(evt);
+            }
+        });
+        cedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cedulaKeyTyped(evt);
             }
         });
 
@@ -108,7 +126,7 @@ FondoPanel fondo = new FondoPanel();
                         .addComponent(id))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +136,7 @@ FondoPanel fondo = new FondoPanel();
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nc)
                             .addComponent(cedula))))
-                .addGap(68, 68, 68))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +153,7 @@ FondoPanel fondo = new FondoPanel();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,9 +182,19 @@ FondoPanel fondo = new FondoPanel();
         String Nombrem = nc.getText();
         String Catalogom = cedula.getText();
        
+        
+        if(id.getText().isEmpty() || nc.getText().isEmpty() || cedula.getText().isEmpty()){
+              JOptionPane.showMessageDialog(null, "NO PUEDES DEJAR CAMPOS VACIOS");
+        
+        }else{
+        
+           if (id.getText().length() !=5){
+               JOptionPane.showMessageDialog(null,"TU ID NO PUEDE SER DIFERENTE DE 5 CARACTERES");          
+        }else{
+           
         catalogom.setID(ID);
- catalogom.setNombrem(Nombrem);
- catalogom.setCatalogom(Catalogom);
+        catalogom.setNombrem(Nombrem);
+        catalogom.setCatalogom(Catalogom);
 
 
         CM.Guardar(catalogom);
@@ -175,9 +203,13 @@ FondoPanel fondo = new FondoPanel();
         id.setText("");
         nc.setText("");
         cedula.setText("");
+           
+           }
         
-
+        }
       
+        
+     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -186,6 +218,27 @@ FondoPanel fondo = new FondoPanel();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
+    consumir.consumirNumeros(evt);
+    }//GEN-LAST:event_idKeyTyped
+
+    private void ncKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ncKeyTyped
+     consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_ncKeyTyped
+
+    private void cedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cedulaKeyTyped
+    consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_cedulaKeyTyped
+//Este es un metodo que pone unas pestañas amarillas con texto al lado del mouse cuando este se posiciona en un text area para que sepa
+    //que poner y como ponerlo
+    public void ayudarAlUsuario(){
+        id.setToolTipText("Ingresa un Id , no puede ser diferente de 5 carácteres");
+        nc.setToolTipText("Ingresa el nombre del catalogo");
+        cedula.setToolTipText("Ingresa el modulo del catalogo");
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
