@@ -133,16 +133,34 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="id">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="idKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="nombre">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nombreKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="ap">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="apKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="am">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="amKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="dir">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dirKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cel">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="celKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>

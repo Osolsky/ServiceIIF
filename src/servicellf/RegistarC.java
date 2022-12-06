@@ -5,6 +5,7 @@
 package servicellf;
 
 import Metodos.CL;
+import Metodos.ConsumirEventos;
 import P.clientes;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,7 +24,7 @@ public class RegistarC extends javax.swing.JFrame {
 CL CL = new CL ();
 DefaultTableModel mdlTable2; 
 Vector vCabeceras = new Vector();
-
+ConsumirEventos consumir = new ConsumirEventos();
  FondoPanel fondo = new FondoPanel();
     public RegistarC() {
         this.setContentPane(fondo);
@@ -67,6 +68,42 @@ Vector vCabeceras = new Vector();
         jLabel5.setText("Direccion:");
 
         jLabel6.setText("Celular:");
+
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idKeyTyped(evt);
+            }
+        });
+
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
+            }
+        });
+
+        ap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apKeyTyped(evt);
+            }
+        });
+
+        am.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                amKeyTyped(evt);
+            }
+        });
+
+        dir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dirKeyTyped(evt);
+            }
+        });
+
+        cel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                celKeyTyped(evt);
+            }
+        });
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -155,24 +192,38 @@ Vector vCabeceras = new Vector();
         String ID = id.getText();
         String Nombre = nombre.getText();
         String ApellidoPaterno = ap.getText();
-String ApellidoMaterno = am.getText();
-String Celular =cel.getText();
-String Direccion = dir.getText();
-        clientes.setID(ID);
-        clientes.setNombre(Nombre);
-        clientes.setApellidoPaterno(ApellidoPaterno);
-        clientes.setApellidoPaterno(ApellidoPaterno);
-clientes.setCelular(Celular);
-clientes.setDireccion(Direccion);
-        CL.Guardar(clientes);
-        CL.GuardarArchivo(clientes);
-        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-        id.setText("");
-        nombre.setText("");
-        ap.setText("");
-        am.setText("");
-        cel.setText("");
-        dir.setText("");
+        String ApellidoMaterno = am.getText();
+        String Celular = cel.getText();
+        String Direccion = dir.getText();
+
+        if (id.getText().isEmpty() || nombre.getText().isEmpty() || ap.getText().isEmpty() || am.getText().isEmpty() || cel.getText().isEmpty() || dir.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NO PUEDES DEJAR CAMPOS VACIOS");
+
+        } else {
+            if (id.getText().length() != 5) {
+                JOptionPane.showConfirmDialog(null, "NO PUEDES INGRESAR UN ID DIFERENTE DE 5 CARACTERES");
+            } else {
+                clientes.setID(ID);
+                clientes.setNombre(Nombre);
+                clientes.setApellidoPaterno(ApellidoPaterno);
+                clientes.setApellidoPaterno(ApellidoPaterno);
+                clientes.setCelular(Celular);
+                clientes.setDireccion(Direccion);
+                CL.Guardar(clientes);
+                CL.GuardarArchivo(clientes);
+                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                id.setText("");
+                nombre.setText("");
+                ap.setText("");
+                am.setText("");
+                cel.setText("");
+                dir.setText("");
+
+            }
+        }
+
+        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -181,6 +232,30 @@ clientes.setDireccion(Direccion);
         pc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
+      consumir.consumirNumeros(evt);
+    }//GEN-LAST:event_idKeyTyped
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+      consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void apKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apKeyTyped
+    consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_apKeyTyped
+
+    private void amKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amKeyTyped
+   consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_amKeyTyped
+
+    private void dirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dirKeyTyped
+    consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_dirKeyTyped
+
+    private void celKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_celKeyTyped
+    consumir.consumirNumeros(evt);         
+    }//GEN-LAST:event_celKeyTyped
 
     /**
      * @param args the command line arguments

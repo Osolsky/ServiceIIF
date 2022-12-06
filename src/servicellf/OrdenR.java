@@ -74,6 +74,11 @@ FondoPanel fondo = new FondoPanel();
 
         jLabel6.setText("Servicio:");
 
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
         id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 idKeyTyped(evt);
@@ -265,7 +270,7 @@ FondoPanel fondo = new FondoPanel();
     }//GEN-LAST:event_clienteActionPerformed
 
     private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
-        consumir.consumirCaracteresEspeciales(evt);
+        consumir.consumirNumeros(evt);
     }//GEN-LAST:event_idKeyTyped
 
     private void fallaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fallaKeyTyped
@@ -287,6 +292,10 @@ FondoPanel fondo = new FondoPanel();
     private void servicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_servicioKeyTyped
      consumir.consumirCaracteresEspeciales(evt);
     }//GEN-LAST:event_servicioKeyTyped
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     /**
      * @param args the command line arguments
