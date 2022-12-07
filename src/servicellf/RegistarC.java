@@ -234,7 +234,7 @@ ConsumirEventos consumir = new ConsumirEventos();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
-      consumir.consumirNumeros(evt);
+      consumir.ConsumirLetras(evt);
     }//GEN-LAST:event_idKeyTyped
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
@@ -254,7 +254,7 @@ ConsumirEventos consumir = new ConsumirEventos();
     }//GEN-LAST:event_dirKeyTyped
 
     private void celKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_celKeyTyped
-    consumir.consumirNumeros(evt);         
+    consumir.ConsumirLetras(evt);         
     }//GEN-LAST:event_celKeyTyped
 
     /**

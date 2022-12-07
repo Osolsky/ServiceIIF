@@ -270,7 +270,7 @@ FondoPanel fondo = new FondoPanel();
     }//GEN-LAST:event_clienteActionPerformed
 
     private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
-        consumir.consumirNumeros(evt);
+        consumir.ConsumirLetras(evt);
     }//GEN-LAST:event_idKeyTyped
 
     private void fallaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fallaKeyTyped
@@ -282,7 +282,7 @@ FondoPanel fondo = new FondoPanel();
     }//GEN-LAST:event_clienteKeyTyped
 
     private void telKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telKeyTyped
-     consumir.consumirNumeros(evt);
+     consumir.ConsumirLetras(evt);
     }//GEN-LAST:event_telKeyTyped
 
     private void entregaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entregaKeyTyped

@@ -23,4 +23,10 @@ public class ConsumirEventos {
             evt.consume();
         }
     }
+    
+    public void ConsumirLetras(java.awt.event.KeyEvent evt){
+        if(!(evt.getKeyChar() >=48 && evt.getKeyChar() <=57 )){
+            evt.consume();
+        }
+    }
 }

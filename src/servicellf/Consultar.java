@@ -105,7 +105,7 @@ public class Consultar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,7 +175,16 @@ public class Consultar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      modificar();
+         int seleccion = JOptionPane.showConfirmDialog(null,"¿Seguro que quieres modificar este registro?");
+     if(seleccion ==0){
+          modificar();
+     }else{
+         JOptionPane.showMessageDialog(null,"Operacion cancelada");
+     }  
+        
+        
+        
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -204,14 +213,14 @@ public class Consultar extends javax.swing.JFrame {
                 for (int j = 0; j < jTable1.getColumnCount(); j++) {
                     bw.write((String) (jTable1.getValueAt(i, j)));
                     if (j < jTable1.getColumnCount() - 1) {
-                        bw.write(",");
+                        bw.write("|");
                     }
                 }
                 bw.newLine();
             }
             bw.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            //JOptionPane.showMessageDialog(null, e);
         }
         JOptionPane.showMessageDialog(null, "Registro actualizado");
         ID.setText("");

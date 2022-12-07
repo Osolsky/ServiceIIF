@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package servicellf;
+import Metodos.ConsumirEventos;
 import Metodos.SR;
 import P.Servicio;
 import java.awt.Graphics;
@@ -22,6 +23,7 @@ Servicio Servicio = new Servicio();
 SR SR = new SR ();
 DefaultTableModel mdlTable3; 
 Vector vCabeceras = new Vector();
+ConsumirEventos consumir = new ConsumirEventos();
     /**
      * Creates new form ServicioR
      */
@@ -29,6 +31,8 @@ FondoPanel fondo = new FondoPanel();
     public ServicioR() {
         this.setContentPane(fondo);
         initComponents();
+        ayudasAlUsuario();
+        
     }
 
     /**
@@ -61,9 +65,32 @@ FondoPanel fondo = new FondoPanel();
 
         jLabel4.setText("Precio:");
 
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idKeyTyped(evt);
+            }
+        });
+
+        NDS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NDSKeyTyped(evt);
+            }
+        });
+
         desc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descActionPerformed(evt);
+            }
+        });
+        desc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                descKeyTyped(evt);
+            }
+        });
+
+        pre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                preKeyTyped(evt);
             }
         });
 
@@ -151,19 +178,31 @@ FondoPanel fondo = new FondoPanel();
         String ID = id.getText();
         String Nombreservicio = NDS.getText();
         String Descripcion = desc.getText();
-String Precio = pre.getText();
+        String Precio = pre.getText();
 
-        Servicio.setID(ID);
-      Servicio.setDescripcion(Descripcion);
-Servicio.setNombreservicio(Nombreservicio);
-Servicio.setPrecio(Precio);
-        SR.Guardar(Servicio);
-        SR.GuardarArchivo(Servicio);
-        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-        id.setText("");
-        NDS.setText("");
-        desc.setText("");
-pre.setText("");
+        if (id.getText().isEmpty() || NDS.getText().isEmpty() || desc.getText().isEmpty() || pre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NO PUEDES DEJAR CAMPOS VACIOS");
+        } else {
+            if (id.getText().length() != 5) {
+                JOptionPane.showMessageDialog(null, "NO PUEDES INGRESAR UN ID DIFRENTE DE 5");
+            } else {
+
+                Servicio.setID(ID);
+                Servicio.setDescripcion(Descripcion);
+                Servicio.setNombreservicio(Nombreservicio);
+                Servicio.setPrecio(Precio);
+                SR.Guardar(Servicio);
+                SR.GuardarArchivo(Servicio);
+                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                id.setText("");
+                NDS.setText("");
+                desc.setText("");
+                pre.setText("");
+            }
+
+        }
+
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -172,6 +211,27 @@ pre.setText("");
         pc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+  public void ayudasAlUsuario(){
+      id.setToolTipText("Ingresa el id");
+      NDS.setToolTipText("Ingresa el NDS");
+      desc.setToolTipText("Ingresa el descuento");
+      pre.setToolTipText("Ingresa el precio");
+  }
+    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
+      consumir.ConsumirLetras(evt);
+    }//GEN-LAST:event_idKeyTyped
+
+    private void NDSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NDSKeyTyped
+      consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_NDSKeyTyped
+
+    private void descKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descKeyTyped
+        consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_descKeyTyped
+
+    private void preKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_preKeyTyped
+       consumir.ConsumirLetras(evt);
+    }//GEN-LAST:event_preKeyTyped
 
     /**
      * @param args the command line arguments

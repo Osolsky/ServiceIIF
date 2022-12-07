@@ -104,15 +104,25 @@ C C = new C ();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int decision = JOptionPane.showConfirmDialog(null,"¿Quieres eliminar este registro?");
+        
+        if(decision == 0){
+            Eliminar();
+        }else{
+            JOptionPane.showMessageDialog(null,"Se elimino correctamente");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+    public void Eliminar() {
+
         this.mdlTable = (DefaultTableModel) jTable1.getModel();
         mdlTable.removeRow(jTable1.getSelectedRow());
-        try{
+        try {
             String archivo = "Celulares.txt";
             BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
-            for(int i=0;i<jTable1.getRowCount();i++){
-                for(int j=0;j<jTable1.getColumnCount();j++){
-                    bw.write((String)(jTable1.getValueAt(i,j)));
-                    if(j<jTable1.getColumnCount()-1){
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                    bw.write((String) (jTable1.getValueAt(i, j)));
+                    if (j < jTable1.getColumnCount() - 1) {
                         bw.write("|");
 
                     }
@@ -120,12 +130,11 @@ C C = new C ();
                 bw.newLine();
             }
             bw.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */

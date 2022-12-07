@@ -106,7 +106,18 @@ public class ServicioC extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.mdlTable = (DefaultTableModel) jTable1.getModel();
+  
+        int decision = JOptionPane.showConfirmDialog(null,"¿Seguro quieres eliminar el registro?");
+                
+         if(decision ==0) {
+             Eliminar();
+         } else{
+             JOptionPane.showMessageDialog(null, "Operacion cancelada");
+         }      
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void Eliminar(){
+          this.mdlTable = (DefaultTableModel) jTable1.getModel();
         mdlTable.removeRow(jTable1.getSelectedRow());
         try{
             String archivo = "Servicio.txt";
@@ -125,8 +136,7 @@ public class ServicioC extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */

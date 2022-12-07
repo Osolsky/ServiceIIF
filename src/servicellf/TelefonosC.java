@@ -5,6 +5,7 @@
 
 package servicellf;
 import Metodos.C;
+import Metodos.ConsumirEventos;
 import P.celulares;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -22,6 +23,7 @@ celulares celulares = new celulares();
 C C = new C ();
 DefaultTableModel mdlTable2; 
 Vector vCabeceras = new Vector();
+ConsumirEventos consumir = new ConsumirEventos();
     /** Creates new form TelefonosC */
 FondoPanel fondo = new FondoPanel();
     public TelefonosC() {
@@ -58,6 +60,30 @@ FondoPanel fondo = new FondoPanel();
         jLabel3.setText("Propietario:");
 
         jLabel4.setText("Orden:");
+
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idKeyTyped(evt);
+            }
+        });
+
+        tel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telKeyTyped(evt);
+            }
+        });
+
+        propietario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                propietarioKeyTyped(evt);
+            }
+        });
+
+        orden.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ordenKeyTyped(evt);
+            }
+        });
 
         jButton2.setText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -137,24 +163,53 @@ FondoPanel fondo = new FondoPanel();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         mdlTable2 = new DefaultTableModel();
 
-        String ID = id.getText();
-        String Telefono = tel.getText();
-        String Propietario = propietario.getText();
-        String Orden = orden.getText();
+        if (id.getText().isEmpty() || tel.getText().isEmpty() || propietario.getText().isEmpty() || orden.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "NO PUDEDES DEJAR CAMPOS VACIOS");
+        } else {
+            if (id.getText().length() != 5) {
+                JOptionPane.showMessageDialog(null, "NO PUEDES TENER UN ID DIFERENTE DE 5");
+            } else {
+                String ID = id.getText();
+                String Telefono = tel.getText();
+                String Propietario = propietario.getText();
+                String Orden = orden.getText();
+
+                celulares.setID(ID);
+                celulares.setOrden(Orden);
+                celulares.setPropietario(Propietario);
+                celulares.setTelefono(Telefono);
+                C.Guardar(celulares);
+                C.GuardarArchivo(celulares);
+                JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
+                id.setText("");
+                tel.setText("");
+                propietario.setText("");
+                orden.setText("");
+
+            }
+        }
+
         
-        celulares.setID(ID);
-        celulares.setOrden(Orden);
-        celulares.setPropietario(Propietario);
-        celulares.setTelefono(Telefono);
-        C.Guardar(celulares);
-        C.GuardarArchivo(celulares);
-        JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
-        id.setText("");
-        tel.setText("");
-        propietario.setText("");
-        orden.setText("");
+  
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
+        consumir.ConsumirLetras(evt);
+    }//GEN-LAST:event_idKeyTyped
+
+    private void telKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telKeyTyped
+      consumir.ConsumirLetras(evt);
+    }//GEN-LAST:event_telKeyTyped
+
+    private void propietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_propietarioKeyTyped
+     consumir.consumirCaracteresEspeciales(evt);
+    }//GEN-LAST:event_propietarioKeyTyped
+
+    private void ordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ordenKeyTyped
+    consumir.ConsumirLetras(evt);
+    }//GEN-LAST:event_ordenKeyTyped
 
     /**
      * @param args the command line arguments
